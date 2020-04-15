@@ -12,3 +12,8 @@ services:
       POSTGRES_PASSWORD: 1234
     volumes:
       - ./dump.sql:/docker-entrypoint-initdb.d/01-init.sql
+  pandas:
+    container_name: pandas
+    image: amancevice/pandas:1.0.3-alpine
+  busybox:
+    image: busybox:latest
