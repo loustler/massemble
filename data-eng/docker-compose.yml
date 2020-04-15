@@ -1,0 +1,14 @@
+version: "3.7"
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:12-alpine
+    ports:
+      - "5432:5432"
+    environment:
+      POSTGRES_DB: dataeng
+      POSTGRES_USER: user
+      POSTGRES_PASSWORD: 1234
+    volumes:
+      - ./dump.sql:/docker-entrypoint-initdb.d/01-init.sql
