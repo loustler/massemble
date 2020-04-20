@@ -2,7 +2,6 @@ inThisBuild(
   Seq(
     organization := "io.loustler.massemble",
     scalaVersion := "2.13.1",
-    name := "concurrency"
   )
 )
 
@@ -19,5 +18,5 @@ lazy val concurrency = project
 .in(file("concurrency"))
 .settings(settings)
 .settings(
-  name := "concurrency"
+  name := "massemble-concurrency"
 )
