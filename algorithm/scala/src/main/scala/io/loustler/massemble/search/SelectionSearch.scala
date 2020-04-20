@@ -2,6 +2,15 @@ package io.loustler.massemble.search
 
 object SelectionSearch {
 
+  /**
+    *
+    * @param list list
+    * @param n int number to search
+    * @param Ord ordering for type A
+    * @tparam A type A
+    * @return
+    * @author loustler lee
+    */
   def search[A](list: List[A], n: Int)(implicit Ord: Ordering[A]): Option[A] = {
     import Ord._
 

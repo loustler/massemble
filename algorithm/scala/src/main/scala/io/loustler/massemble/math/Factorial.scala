@@ -12,6 +12,7 @@ object Factorial {
     *
     * @param n factorial number
     * @return
+    * @author loustler lee
     */
   def factorial(n: Int): Long = {
     def loop(n: Int): Long = n match {

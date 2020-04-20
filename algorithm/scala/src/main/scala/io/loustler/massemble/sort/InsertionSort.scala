@@ -2,6 +2,14 @@ package io.loustler.massemble.sort
 
 object InsertionSort {
 
+  /**
+    *
+    * @param list list of A
+    * @param Ord Ordering for A
+    * @tparam A type
+    * @return sorted list by [[Ordering]]
+    * @author loustler lee
+    */
   def sort[A](list: List[A])(implicit Ord: Ordering[A]): List[A] = {
     import Ord._
 

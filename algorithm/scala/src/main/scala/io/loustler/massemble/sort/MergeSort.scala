@@ -2,6 +2,15 @@ package io.loustler.massemble.sort
 
 object MergeSort {
 
+  /**
+    * Merge Sort
+    *
+    * @param list list
+    * @param Ord ordering for A
+    * @tparam A type A
+    * @return sorted list type of A by [[Ordering]]
+    * @author loustler lee
+    */
   def sort[A](list: List[A])(implicit Ord: Ordering[A]): List[A] = {
     import Ord._
 

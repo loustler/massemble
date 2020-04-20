@@ -27,6 +27,7 @@ object BubbleSort {
     * @param Ord  ordering for compare list
     * @tparam A type A
     * @return
+    * @author loustler lee
     */
   def sort[A](list: List[A])(implicit Ord: Ordering[A]): List[A] = {
     import Ord._

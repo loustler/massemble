@@ -14,6 +14,7 @@ object BinarySearch {
     * @param Ord  Ordering for type A
     * @tparam A type A
     * @return Some[A], otherwise None
+    * @author loustler lee
     */
   def search[A](list: List[A], key: A)(implicit Ord: Ordering[A]): Option[A] = {
     import Ord._

@@ -9,6 +9,7 @@ object Fibonacci {
     *
     * @param n fibonacci number
     * @return
+    * @author loustler lee
     */
   def fibonacci(n: Int): Int = {
     def loop(n: Int): Int = n match {

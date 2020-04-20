@@ -2,6 +2,15 @@ package io.loustler.massemble.sort
 
 object SelectionSort {
 
+  /**
+    * Selection Sort
+    *
+    * @param list
+    * @param Ord
+    * @tparam A
+    * @return
+    * @author loustler lee
+    */
   def sort[A](list: List[A])(implicit Ord: Ordering[A]): List[A] = {
     import Ord._
 
