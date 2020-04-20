@@ -1,8 +1,9 @@
 inThisBuild(
   Seq(
-    organization := "io.loustler",
+    organization := "io.loustler.massemble",
     crossScalaVersions := Seq("2.12.10", "2.13.1"),
     version := "0.1.0",
+    name := "massemble-algorithm"
   )
 )
 
