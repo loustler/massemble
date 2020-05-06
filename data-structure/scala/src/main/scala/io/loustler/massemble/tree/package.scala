@@ -1,4 +1,4 @@
-import io.loustler.massemble
+package io.loustler.massemble
 
 package object tree {
   implicit val NothingOrdering: Ordering[Nothing] = new Ordering[Nothing] {

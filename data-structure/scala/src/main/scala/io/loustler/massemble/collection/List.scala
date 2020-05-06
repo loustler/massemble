@@ -1,4 +1,4 @@
-import io.loustler.massemble.collection
+package io.loustler.massemble.collection
 
 import scala.annotation.tailrec
 

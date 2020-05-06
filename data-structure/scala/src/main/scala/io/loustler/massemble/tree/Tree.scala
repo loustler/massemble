@@ -1,4 +1,4 @@
-import io.loustler.massemble.tree
+package io.loustler.massemble.tree
 
 sealed abstract class Tree[+A] {
   def value: A

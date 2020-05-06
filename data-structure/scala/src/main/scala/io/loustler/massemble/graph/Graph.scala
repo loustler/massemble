@@ -1,4 +1,4 @@
-import io.loustler.massemble.graph
+package io.loustler.massemble.graph
 
 final case class GraphEdge[E, N](source: Graph[E, N], target: Graph[E, N], value: E)
 

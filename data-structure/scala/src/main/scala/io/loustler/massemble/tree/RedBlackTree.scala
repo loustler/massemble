@@ -1,4 +1,4 @@
-import io.loustler.massemble.tree
+package io.loustler.massemble.tree
 
 sealed trait Color
 case object Red   extends Color

@@ -1,4 +1,4 @@
-import io.loustler.massemble.heap
+package io.loustler.massemble.heap
 
 sealed abstract class Heap[+A] { self =>
   def min: A
