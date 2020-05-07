@@ -140,9 +140,8 @@ object Graph {
   def apply[E, N](tuples: (N, E, N)*): Graph[E, N] = {
     val graph = Graph.empty[E, N]
 
-    for ((from, via, to) <- tuples) {
+    for ((from, via, to) <- tuples)
       graph.connect(from, via, to)
-    }
 
     graph
   }

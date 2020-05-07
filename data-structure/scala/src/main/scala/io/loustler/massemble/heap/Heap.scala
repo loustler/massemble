@@ -26,19 +26,21 @@ sealed abstract class Heap[+A] { self =>
   }
 
   def remove: Heap[A] = {
-    def floatLeft(x: A, left: Heap[A], right: Heap[A]): Heap[A] = left match {
-      case HeapBranch(leftMin, left2, leftRight, _, _) =>
-        Heap.make(leftMin, Heap.make(x, left2, leftRight), right)
+    def floatLeft(x: A, left: Heap[A], right: Heap[A]): Heap[A] =
+      left match {
+        case HeapBranch(leftMin, left2, leftRight, _, _) =>
+          Heap.make(leftMin, Heap.make(x, left2, leftRight), right)
 
-      case _ => Heap.make(x, left, right)
-    }
+        case _ => Heap.make(x, left, right)
+      }
 
-    def floatRight(x: A, left: Heap[A], right: Heap[A]): Heap[A] = right match {
-      case HeapBranch(rightMin, rightLeft, right2, _, _) =>
-        Heap.make(rightMin, left, Heap.make(x, rightLeft, right2))
+    def floatRight(x: A, left: Heap[A], right: Heap[A]): Heap[A] =
+      right match {
+        case HeapBranch(rightMin, rightLeft, right2, _, _) =>
+          Heap.make(rightMin, left, Heap.make(x, rightLeft, right2))
 
-      case _ => Heap.make(x, left, right)
-    }
+        case _ => Heap.make(x, left, right)
+      }
 
     def mergeChildren(left: Heap[A], right: Heap[A]): Heap[A] =
       if (left.isEmpty && right.isEmpty) Heap.empty[A]
@@ -91,11 +93,13 @@ object Heap {
       math.max(left.height, right.height) + 1
     )
 
-  private[Heap] def bubbleDown[A](x: A, left: Heap[A], right: Heap[A]): Heap[A] = (left, right) match {
-    case (_, _) => Heap.make(x, left, right)
-  }
+  private[Heap] def bubbleDown[A](x: A, left: Heap[A], right: Heap[A]): Heap[A] =
+    (left, right) match {
+      case (_, _) => Heap.make(x, left, right)
+    }
 
-  private[Heap] def bubbleUp[A](x: A, left: Heap[A], right: Heap[A]): Heap[A] = (left, right) match {
-    case (_, _) => Heap.make(x, left, right)
-  }
+  private[Heap] def bubbleUp[A](x: A, left: Heap[A], right: Heap[A]): Heap[A] =
+    (left, right) match {
+      case (_, _) => Heap.make(x, left, right)
+    }
 }

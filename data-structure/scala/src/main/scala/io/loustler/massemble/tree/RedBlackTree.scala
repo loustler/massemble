@@ -59,7 +59,7 @@ sealed abstract class RedBlackTree[+A] {
             Red,
             d,
             RedBlackTree.make(Black, b, a, c), // Recoloring
-            RedBlackTree.make(Black, x, g, h) // Restructuring
+            RedBlackTree.make(Black, x, g, h)  // Restructuring
           )
 
         /**
@@ -87,15 +87,15 @@ sealed abstract class RedBlackTree[+A] {
           *
           */
         case (
-            Black,
-            RbBranch(Red, b, a, RbBranch(Red, d, c, e)),
-            f
+              Black,
+              RbBranch(Red, b, a, RbBranch(Red, d, c, e)),
+              f
             ) =>
           RedBlackTree.make(
             Red,
             d,
             RedBlackTree.make(Black, b, a, c), // Restructuring
-            RedBlackTree.make(Black, x, e, f) // Recoloring
+            RedBlackTree.make(Black, x, e, f)  // Recoloring
           )
 
         case _ => RedBlackTree.make(color, x, left, right)
@@ -128,9 +128,9 @@ sealed abstract class RedBlackTree[+A] {
           *
           */
         case (
-            Black,
-            a,
-            RbBranch(Red, c, b, RbBranch(Red, e, d, f))
+              Black,
+              a,
+              RbBranch(Red, c, b, RbBranch(Red, e, d, f))
             ) =>
           RedBlackTree.make(
             Red,
@@ -163,9 +163,9 @@ sealed abstract class RedBlackTree[+A] {
           *
           */
         case (
-            Black,
-            a,
-            RbBranch(Red, e, RbBranch(Red, c, b, d), f)
+              Black,
+              a,
+              RbBranch(Red, e, RbBranch(Red, c, b, d), f)
             ) =>
           RedBlackTree.make(
             Red,

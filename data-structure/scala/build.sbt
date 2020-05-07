@@ -2,7 +2,7 @@ inThisBuild(
   Seq(
     organization := "io.loustler",
     crossScalaVersions := Seq("2.12.10", "2.13.2"),
-    version := "0.1.0",
+    version := "0.1.0"
   )
 )
 
@@ -25,14 +25,14 @@ lazy val commonSetting = Seq(
     "-Ypartial-unification"
   ),
   scalafmtOnCompile := false,
-  test / fork := true,
+  test / fork := true
 )
 
 lazy val root = (project in file("."))
-      .settings(commonSetting)
-      .settings(
-        name:= "algorithm",
-        libraryDependencies ++= Seq(
-          "org.scalatest" %% "scalatest" % V.scalaTest % Test
-        )
-      )
+  .settings(commonSetting)
+  .settings(
+    name := "data-structure",
+    libraryDependencies ++= Seq(
+      "org.scalatest" %% "scalatest" % V.scalaTest % Test
+    )
+  )
