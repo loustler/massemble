@@ -50,22 +50,24 @@ object QuickSort {
   def sort[A](list: List[A])(implicit Ord: Ordering[A]): List[A] = {
     import Ord._
 
-    def iSort(t: (List[A], A, List[A])): List[A] = t match {
-      case (Nil, pivot, Nil) => List(pivot)
+    def iSort(t: (List[A], A, List[A])): List[A] =
+      t match {
+        case (Nil, pivot, Nil) => List(pivot)
 
-      case (less, pivot, greater) => partitionAndSort(less) ::: (pivot :: partitionAndSort(greater))
-    }
+        case (less, pivot, greater) => partitionAndSort(less) ::: (pivot :: partitionAndSort(greater))
+      }
 
     def partition(x: List[A]): (List[A], A, List[A]) = {
       @scala.annotation.tailrec
-      def loop(pivot: A, y: List[A], less: List[A], greater: List[A]): (List[A], A, List[A]) = y match {
-        case head :: tail =>
-          if (head < pivot) loop(pivot, tail, head :: less, greater) // less쪽에 cons
-          else loop(pivot, tail, less, head :: greater) // greater에 cons
+      def loop(pivot: A, y: List[A], less: List[A], greater: List[A]): (List[A], A, List[A]) =
+        y match {
+          case head :: tail =>
+            if (head < pivot) loop(pivot, tail, head :: less, greater) // less쪽에 cons
+            else loop(pivot, tail, less, head :: greater)              // greater에 cons
 
-        case Nil =>
-          (less, pivot, greater)
-      }
+          case Nil =>
+            (less, pivot, greater)
+        }
 
       loop(x.head, x.tail, Nil, Nil)
     }

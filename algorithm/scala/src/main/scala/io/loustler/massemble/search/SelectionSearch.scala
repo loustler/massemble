@@ -14,13 +14,14 @@ object SelectionSearch {
   def search[A](list: List[A], n: Int)(implicit Ord: Ordering[A]): Option[A] = {
     import Ord._
 
-    def search(t: (List[A], A, List[A]), m: Int): Option[A] = t match {
-      case (Nil, p, Nil) if m == 0 => Some(p)
+    def search(t: (List[A], A, List[A]), m: Int): Option[A] =
+      t match {
+        case (Nil, p, Nil) if m == 0 => Some(p)
 
-      case (Nil, _, Nil) => None
+        case (Nil, _, Nil) => None
 
-      case (l, p, g) => select(l, p, g, l.length, m)
-    }
+        case (l, p, g) => select(l, p, g, l.length, m)
+      }
 
     def select(l: List[A], p: A, g: List[A], q: Int, m: Int): Option[A] =
       if (m < q) partitionAndSearch(l, m)
