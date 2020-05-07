@@ -20,10 +20,20 @@ final class LRU[K, V](capacity: Int) extends Cache[K, V] {
     builder.result()
   }
 
-  override def get(key: K): Option[V] = deque.find(_._1 == key).map(_._2)
+  override def get(key: K): Option[V] = {
+    val found = deque.find(_._1 == key)
+
+    found
+      .map {
+        case (key, value) =>
+          toNewest(key, value)
+
+          value
+      }
+  }
 
   override def put(key: K, value: V): Unit = {
-    if (size <= capacity) removeEldestValue()
+    if (size >= capacity) removeEldestValue()
 
     add(key, value)
   }
@@ -40,15 +50,17 @@ final class LRU[K, V](capacity: Int) extends Cache[K, V] {
 
   override def trim(): Unit = deque.trimToSize()
 
-  private def add(key: K, value: V): Unit = {
-    val pair = key -> value
+  private def add(key: K, value: V): Unit = toNewest(key, value)
 
-    deque.indexOf(pair) match {
-      case -1 => deque += pair
+  private def toNewest(key: K, value: V): Unit = {
+    val elem = key -> value
+
+    deque.indexOf(elem) match {
+      case -1 => deque += elem
 
       case idx =>
         deque.remove(idx)
-        deque += pair
+        deque += elem
     }
   }
 
