@@ -37,16 +37,17 @@ object BubbleSort {
       else bubble(x, Nil, y)
 
     @scala.annotation.tailrec
-    def bubble(x: List[A], y: List[A], z: List[A]): List[A] = x match {
-      case head1 :: head2 :: tail =>
-        println(s"head1: $head1, head2: $head2, x: ${x}, y: ${y}, z: ${z}")
-        if (head1 > head2) bubble(head1 :: tail, head2 :: y, z)
-        else bubble(head2 :: tail, head1 :: y, z)
+    def bubble(x: List[A], y: List[A], z: List[A]): List[A] =
+      x match {
+        case head1 :: head2 :: tail =>
+          println(s"head1: $head1, head2: $head2, x: ${x}, y: ${y}, z: ${z}")
+          if (head1 > head2) bubble(head1 :: tail, head2 :: y, z)
+          else bubble(head2 :: tail, head1 :: y, z)
 
-      case head :: Nil =>
-        println(s"head: $head, y: $y, z: $z")
-        sort(y, head :: z)
-    }
+        case head :: Nil =>
+          println(s"head: $head, y: $y, z: $z")
+          sort(y, head :: z)
+      }
 
     sort(list, Nil)
   }
@@ -69,16 +70,17 @@ object BubbleSort {
       else bubble(x, Nil, y)
 
     @scala.annotation.tailrec
-    def bubble(x: List[A], y: List[A], z: List[A]): List[A] = x match {
-      case head1 :: head2 :: tail =>
-        println(s"head1: $head1, head2: $head2, x: ${x}, y: ${y}, z: ${z}")
-        if (f(head1, head2)) bubble(head1 :: tail, head2 :: y, z)
-        else bubble(head2 :: tail, head1 :: y, z)
+    def bubble(x: List[A], y: List[A], z: List[A]): List[A] =
+      x match {
+        case head1 :: head2 :: tail =>
+          println(s"head1: $head1, head2: $head2, x: ${x}, y: ${y}, z: ${z}")
+          if (f(head1, head2)) bubble(head1 :: tail, head2 :: y, z)
+          else bubble(head2 :: tail, head1 :: y, z)
 
-      case head :: Nil =>
-        println(s"head: $head, y: $y, z: $z")
-        sort(y, head :: z)
-    }
+        case head :: Nil =>
+          println(s"head: $head, y: $y, z: $z")
+          sort(y, head :: z)
+      }
 
     sort(list, Nil)
   }

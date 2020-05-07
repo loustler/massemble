@@ -15,10 +15,11 @@ object Factorial {
     * @author loustler lee
     */
   def factorial(n: Int): Long = {
-    def loop(n: Int): Long = n match {
-      case n if n <= 1 => 1
-      case n           => loop(n - 1) * n
-    }
+    def loop(n: Int): Long =
+      n match {
+        case n if n <= 1 => 1
+        case n           => loop(n - 1) * n
+      }
 
     loop(n)
   }
