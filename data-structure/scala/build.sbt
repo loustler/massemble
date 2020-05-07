@@ -1,7 +1,7 @@
 inThisBuild(
   Seq(
     organization := "io.loustler",
-    crossScalaVersions := Seq("2.12.10", "2.13.2"),
+    scalaVersion := "2.13.2",
     version := "0.1.0"
   )
 )
@@ -17,12 +17,10 @@ lazy val commonSetting = Seq(
     "-language:implicitConversions",
     "-unchecked",
     "-Xlint",
-    "-Yno-adapted-args",
     "-Ywarn-dead-code",
     "-Ywarn-numeric-widen",
     "-Ywarn-value-discard",
-    "-Xfuture",
-    "-Ypartial-unification"
+    "-Xfuture"
   ),
   scalafmtOnCompile := false,
   test / fork := true
