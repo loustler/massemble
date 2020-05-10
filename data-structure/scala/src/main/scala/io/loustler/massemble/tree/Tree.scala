@@ -1,4 +1,4 @@
-import io.loustler.massemble.tree
+package io.loustler.massemble.tree
 
 sealed abstract class Tree[+A] {
   def value: A
@@ -55,15 +55,14 @@ sealed abstract class Tree[+A] {
     if (isEmpty) fail(s"Cannot find ${x} in this Tree")
     else if (x < value) Tree.make(value, left.remove(x), right) // 삭제하려는 X가 더 작을 때, 왼쪽트리에서 삭제
     else if (x > value) Tree.make(value, left, right.remove(x)) // 삭제하려는 X가 더 클 때, 오른쪽트리에서 삭제
-    else { // 똑같을 때
-      if (left.isEmpty && right.isEmpty) Tree.empty // 좌/우 트리가 없으면 가지고 있던 값이 사라졌으므로 Empty Tree
-      else if (right.isEmpty) left                  // right가 empty 라면 left만. value는 삭제되었으므로
-      else if (left.isEmpty) right // left가 emp¥라면 right만. valu는 삭제되었으므로
-      else { // left, right 둘 다 있을 대
-        val succ: A = right.min
+    else                                                        // 똑같을 때
+    if (left.isEmpty && right.isEmpty) Tree.empty               // 좌/우 트리가 없으면 가지고 있던 값이 사라졌으므로 Empty Tree
+    else if (right.isEmpty) left                                // right가 empty 라면 left만. value는 삭제되었으므로
+    else if (left.isEmpty) right                                // left가 emp¥라면 right만. valu는 삭제되었으므로
+    else {                                                      // left, right 둘 다 있을 대
+      val succ: A = right.min
 
-        Tree.make[B](succ, left, right.remove[B](succ)(OrdB))
-      }
+      Tree.make[B](succ, left, right.remove[B](succ)(OrdB))
     }
   }
 
@@ -72,15 +71,16 @@ sealed abstract class Tree[+A] {
 
     @scala.annotation.tailrec
     def loop(t: Tree[A], c: Option[A]): Boolean =
-      if (t.isEmpty) check(c) // tree가 empty면 value 확인
+      if (t.isEmpty) check(c)               // tree가 empty면 value 확인
       else if (x < t.value) loop(t.left, c) // x가 value보다 작으면 왼쪽 트리에서 검색
-      else loop(t.right, Some(t.value)) // x <= value 에서는 오른쪽 트리에서 검색하고, 현재값 비교를 위해서 확인
+      else loop(t.right, Some(t.value))     // x <= value 에서는 오른쪽 트리에서 검색하고, 현재값 비교를 위해서 확인
 
-    def check(c: Option[A]): Boolean = c match {
-      case Some(y) if x == y => true
+    def check(c: Option[A]): Boolean =
+      c match {
+        case Some(y) if x == y => true
 
-      case _ => false
-    }
+        case _ => false
+      }
 
     loop(this, None)
   }
@@ -98,7 +98,11 @@ sealed abstract class Tree[+A] {
     def loop(left: Tree[B], right: Tree[B]): Boolean =
       if (left.isEmpty && right.isEmpty) true
       else if (left.isEmpty || right.isEmpty) false
-      else left.value == right.value && loop(left.left, right.left) && loop(left.right, right.right) // left tree, right tree의 서브트리 중 일치하는 게 있는 지 확인
+      else
+        left.value == right.value && loop(left.left, right.left) && loop(
+          left.right,
+          right.right
+        ) // left tree, right tree의 서브트리 중 일치하는 게 있는 지 확인
 
     loop(subtree(tree.value), tree) // 주어진 tree와 현재 tree의 서브트리가 일치하는 지 확인
   }

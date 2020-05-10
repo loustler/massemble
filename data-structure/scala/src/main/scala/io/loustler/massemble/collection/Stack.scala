@@ -1,4 +1,4 @@
-import io.loustler.massemble.collection
+package io.loustler.massemble.collection
 
 final class Stack[+A](self: List[A]) {
   def top: A = self.head

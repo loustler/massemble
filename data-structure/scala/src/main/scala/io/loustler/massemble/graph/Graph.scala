@@ -1,4 +1,4 @@
-import io.loustler.massemble.graph
+package io.loustler.massemble.graph
 
 final case class GraphEdge[E, N](source: Graph[E, N], target: Graph[E, N], value: E)
 
@@ -140,9 +140,8 @@ object Graph {
   def apply[E, N](tuples: (N, E, N)*): Graph[E, N] = {
     val graph = Graph.empty[E, N]
 
-    for ((from, via, to) <- tuples) {
+    for ((from, via, to) <- tuples)
       graph.connect(from, via, to)
-    }
 
     graph
   }
