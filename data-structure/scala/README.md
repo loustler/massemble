@@ -4,8 +4,8 @@
 1. [LFU](./src/main/scala/io/loustler/massemble/cache/LFU.scala)
 
 ## Collection
-1. [List] (./src/main/scala/io/loustler/massemble/List.scala)
-1. [Stack] (./src/main/scala/io/loustler/massemble/Stack.scala)
+1. [List](./src/main/scala/io/loustler/massemble/List.scala)
+1. [Stack](./src/main/scala/io/loustler/massemble/Stack.scala)
 
 ## Graph
 1. [Graph](./src/main/scala/io/loustler/massemble/graph/Graph.scala)
