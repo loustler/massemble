@@ -1,6 +1,6 @@
 package io.loustler.massemble.spark.csv
 
-import io.loustler.massemble.spark.SparkSessionBuilder
+import io.loustler.massemble.spark.builder.SparkSessionBuilder
 import org.apache.spark.sql.functions.{ avg, max, round }
 import org.apache.spark.storage.StorageLevel
 
