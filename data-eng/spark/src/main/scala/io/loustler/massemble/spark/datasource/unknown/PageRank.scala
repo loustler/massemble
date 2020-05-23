@@ -1,4 +1,4 @@
-package io.loustler.massemble.spark.unknown
+package io.loustler.massemble.spark.datasource.unknown
 
 import io.loustler.massemble.spark.builder.SparkContextBuilder
 import org.apache.spark.HashPartitioner

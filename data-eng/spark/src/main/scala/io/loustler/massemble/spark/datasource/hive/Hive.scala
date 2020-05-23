@@ -1,4 +1,4 @@
-package io.loustler.massemble.spark.hive
+package io.loustler.massemble.spark.datasource.hive
 
 import io.loustler.massemble.spark.builder.{ SparkContextBuilder, SparkSessionBuilder }
 import org.apache.spark.sql._
