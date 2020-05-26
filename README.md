@@ -7,6 +7,7 @@ My Assemble
 1. [Data Structure](./data-structure)
 1. [Data Engineering](./data-eng)
 1. [Concurrency](./concurrency)
+1. [Functional Programming](./functional-programming)
 
 # LICENSE
 MIT, @loustler
