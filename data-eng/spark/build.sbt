@@ -30,8 +30,11 @@ lazy val root = (project in file("."))
   .settings(
     name := "spark",
     libraryDependencies ++= Seq(
-      "org.scalatest" %% "scalatest" % V.scalaTest % Test,
-      "org.apache.spark" %% "spark-core" % V.spark,
-      "org.apache.spark" %% "spark-sql" % V.spark
+      "org.scalatest"         %% "scalatest"  % V.scalaTest % Test,
+      "org.apache.spark"      %% "spark-core" % V.spark,
+      "org.apache.spark"      %% "spark-sql"  % V.spark,
+      "com.typesafe"           % "config"     % "1.4.0",
+      "com.github.pureconfig" %% "pureconfig" % "0.12.3",
+      "org.postgresql"         % "postgresql" % "42.2.12"
     )
   )

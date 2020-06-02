@@ -1,4 +1,5 @@
 package io.loustler.massemble.spark
+package datasource
 
 import org.apache.spark.sql.types._
 
