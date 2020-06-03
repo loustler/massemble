@@ -19,7 +19,7 @@ object FilePath {
         case x           => parent(path)(x - 1)
       }
 
-    parent(pwd)(7).toString
+    parent(pwd)(8).toString
   }
 
   /**
