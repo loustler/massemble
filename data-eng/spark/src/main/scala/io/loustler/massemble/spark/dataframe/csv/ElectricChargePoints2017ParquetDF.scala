@@ -1,16 +1,16 @@
-package io.loustler.massemble.spark.datasource.csv
+package io.loustler.massemble.spark.dataframe.csv
 
-import io.loustler.massemble.spark.ProjectRoot
-import io.loustler.massemble.spark.datasource.file.FileSize._
 import io.loustler.massemble.spark.builder.SparkSessionBuilder
+import io.loustler.massemble.spark.file.FileSize._
+import io.loustler.massemble.spark.file.{ FileFormat, FilePath }
 import org.apache.spark.sql.functions.{ avg, max, round }
 import org.apache.spark.storage.StorageLevel
 
-object ElectricChargePoints2017Parquet {
+object ElectricChargePoints2017ParquetDF {
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSessionBuilder.local
-      .appName("ElectricChargePoints2017Parquet")
+      .appName("ElectricChargePoints2017ParquetDF")
       .getOrCreate()
 
     val df = spark.read
@@ -31,11 +31,11 @@ object ElectricChargePoints2017Parquet {
 
     aggDf.show(numRows = 1000)
 
-//    val parquetPathWithDefaultOpt = "/data/parquet/electric_charge_points_2017_parquet_no-opt"
+//    val parquetPathWithDefaultOpt = FilePath.path(FileFormat.Parquet, "electric_charge_points_2017_parquet_no-opt")
 
-//    aggDf.write.parquet(s"${ProjectRoot}${parquetPathWithDefaultOpt}")
+//    aggDf.write.parquet(parquetPathWithDefaultOpt)
 
-    val parquetWithOpts = "/data/parquet/electric_charge_points_2017_parquet_opt"
+    val parquetOptPath = FilePath.path(FileFormat.Parquet, "electric_charge_points_2017_parquet_opt")
 
     // Option
     // See http://engineering.vcnc.co.kr/2018/05/parquet-and-spark/
@@ -49,6 +49,6 @@ object ElectricChargePoints2017Parquet {
           "parquet.dictionary.page.size" -> 8.kb.toString
         )
       )
-      .parquet(s"${ProjectRoot}${parquetWithOpts}")
+      .parquet(parquetOptPath)
   }
 }

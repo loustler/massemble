@@ -1,8 +1,9 @@
 # Data Engineer with Spark
 ## Contents(example)
-1. [DataFrame with DataSource from CSV](./src/main/scala/io/loustler/massemble/spark/datasource/csv)
-1. [DataFrame with DataSource from hive](./src/main/scala/io/loustler/massemble/spark/datasource/hive)
-1. [DataFrame with DataSource from rdb](./src/main/scala/io/loustler/massemble/spark/datasource/rdb)
+1. [DataFrame with DataSource from CSV](src/main/scala/io/loustler/massemble/spark/dataframe/csv)
+1. [DataFrame with DataSource from hive](src/main/scala/io/loustler/massemble/spark/dataframe/hive)
+1. [DataFrame with DataSource from rdb](src/main/scala/io/loustler/massemble/spark/dataframe/rdb)
+1. [DataFrame with DataSource from json](src/main/scala/io/loustler/massemble/spark/dataframe/json)
 
 ## Prepare
 ```sh

@@ -1,4 +1,4 @@
-package io.loustler.massemble.spark.datasource.file
+package io.loustler.massemble.spark.file
 
 object FileSize {
   val capacity = 1024

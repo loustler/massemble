@@ -1,14 +1,14 @@
-package io.loustler.massemble.spark.datasource.csv
+package io.loustler.massemble.spark.dataframe.csv
 
 import io.loustler.massemble.spark.builder.SparkSessionBuilder
 import org.apache.spark.sql.functions.{ avg, max, round }
 import org.apache.spark.storage.StorageLevel
 
-object ElectricChargePoints2017Csv {
+object ElectricChargePoints2017CsvDF {
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSessionBuilder.local
-      .appName("ElectricChargePoints2017Csv")
+      .appName("ElectricChargePoints2017CsvDF")
       .getOrCreate()
 
     val df = spark.read

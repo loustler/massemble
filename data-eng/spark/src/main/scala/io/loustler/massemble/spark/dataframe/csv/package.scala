@@ -1,12 +1,11 @@
 package io.loustler.massemble.spark
-package datasource
+package dataframe
 
+import io.loustler.massemble.spark.file.{ FileFormat, FilePath }
 import org.apache.spark.sql.types._
 
 package object csv {
-  val ElectricCheckPoint2017Csv = "/data/csv/electric-chargepoints-2017.csv"
-
-  val ElectricCheckPoint2017CsvFullPath = s"${ProjectRoot}${ElectricCheckPoint2017Csv}"
+  val ElectricCheckPoint2017CsvFullPath: String = FilePath.path(FileFormat.CSV, "electric-chargepoints-2017.csv")
 
   val ElectricCheckPoint2017CsvSchema: StructType = StructType(
     Seq(

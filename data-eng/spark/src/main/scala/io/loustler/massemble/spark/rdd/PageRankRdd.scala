@@ -1,4 +1,4 @@
-package io.loustler.massemble.spark.datasource.unknown
+package io.loustler.massemble.spark.rdd
 
 import io.loustler.massemble.spark.builder.SparkContextBuilder
 import org.apache.spark.HashPartitioner
@@ -18,10 +18,10 @@ import org.apache.spark.rdd.RDD
   * partitionBy가 `Key`를 이용해서 파티셔닝을 하게 되므로 key가 변경이 되면 파티셔닝을 다시 진행함. 따라서 key에는 영향을 주지 않는 `mapValues`와
   * 같은 것을 사용
   */
-object PageRank {
+object PageRankRdd {
 
   def main(args: Array[String]): Unit = {
-    val sc = SparkContextBuilder.default("PageRank")
+    val sc = SparkContextBuilder.default("PageRankRDD")
 
     val links: RDD[(String, Seq[String])] = sc
       .objectFile[(String, Seq[String])]("path")
