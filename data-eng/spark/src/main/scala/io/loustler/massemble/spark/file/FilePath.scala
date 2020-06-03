@@ -2,6 +2,11 @@ package io.loustler.massemble.spark.file
 
 object FilePath {
 
+  /**
+    * Absolute path of this project.
+    *
+    * `/user/home/path/to/project`
+    */
   lazy val ProjectRoot: String = locally {
     import java.nio.file.{ Path, Paths }
 
