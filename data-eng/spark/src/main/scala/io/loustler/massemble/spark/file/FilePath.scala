@@ -2,6 +2,8 @@ package io.loustler.massemble.spark.file
 
 object FilePath {
 
+  val PackageDepth: Int = 8
+
   /**
     * Absolute path of this project.
     *
@@ -19,7 +21,7 @@ object FilePath {
         case x           => parent(path)(x - 1)
       }
 
-    parent(pwd)(8).toString
+    parent(pwd)(PackageDepth).toString
   }
 
   /**
