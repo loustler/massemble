@@ -1,9 +1,9 @@
-package io.loustler.massemble.spark.datasource.hive
+package io.loustler.massemble.spark.dataframe.hive
 
 import io.loustler.massemble.spark.builder.{ SparkContextBuilder, SparkSessionBuilder }
 import org.apache.spark.sql._
 
-object Hive {
+object HiveDF {
 
   def main(args: Array[String]): Unit = {
     // HiveContext deprecated since 2.0.0

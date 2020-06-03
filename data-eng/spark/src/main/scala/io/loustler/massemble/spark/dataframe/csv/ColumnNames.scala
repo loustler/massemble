@@ -1,4 +1,4 @@
-package io.loustler.massemble.spark.datasource.csv
+package io.loustler.massemble.spark.dataframe.csv
 
 object ColumnNames {
   val ChargingEvent = "chargingEvent"

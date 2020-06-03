@@ -1,10 +1,10 @@
-package io.loustler.massemble.spark.datasource.rdb
+package io.loustler.massemble.spark.dataframe.rdb
 
 import io.loustler.massemble.spark.builder.SparkSessionBuilder
 import io.loustler.massemble.spark.config._
 import org.apache.spark.sql.functions.{ avg, max, round }
 
-object Postgres {
+object PostgresDF {
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSessionBuilder.local
