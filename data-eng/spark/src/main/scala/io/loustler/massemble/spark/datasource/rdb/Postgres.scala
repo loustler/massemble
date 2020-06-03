@@ -2,6 +2,7 @@ package io.loustler.massemble.spark.datasource.rdb
 
 import io.loustler.massemble.spark.builder.SparkSessionBuilder
 import io.loustler.massemble.spark.config._
+import org.apache.spark.sql.functions.{ avg, max, round }
 
 object Postgres {
 
@@ -16,12 +17,23 @@ object Postgres {
 
     val table = "eletric_chargepoints_2017"
 
-    spark.read
+    val df = spark.read
       .jdbc(
         url = postgresConfig.url,
         table = table,
         properties = postgresConfig.properties
       )
-      .show()
+      .persist()
+
+    val aggDf = df
+      .groupBy(df.apply("chargepoint_id"))
+      .agg(
+        round(max(df("plugin_duration"))).alias("max_duration"),
+        round(avg(df.apply("plugin_duration"))).alias("avg_duration")
+      )
+
+    aggDf.show(numRows = 1000)
+
+    aggDf.unpersist()
   }
 }
