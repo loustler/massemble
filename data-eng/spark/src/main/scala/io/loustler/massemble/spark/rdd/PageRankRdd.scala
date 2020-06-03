@@ -21,7 +21,7 @@ import org.apache.spark.rdd.RDD
 object PageRankRdd {
 
   def main(args: Array[String]): Unit = {
-    val sc = SparkContextBuilder.default("PageRank")
+    val sc = SparkContextBuilder.default("PageRankRDD")
 
     val links: RDD[(String, Seq[String])] = sc
       .objectFile[(String, Seq[String])]("path")

@@ -8,7 +8,7 @@ object ElectricChargePoints2017CsvDF {
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSessionBuilder.local
-      .appName("ElectricChargePoints2017Csv")
+      .appName("ElectricChargePoints2017CsvDF")
       .getOrCreate()
 
     val df = spark.read

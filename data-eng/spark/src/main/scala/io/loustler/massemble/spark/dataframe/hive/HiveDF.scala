@@ -9,7 +9,7 @@ object HiveDF {
     // HiveContext deprecated since 2.0.0
     // Example see https://spark.apache.org/docs/latest/sql-data-sources-hive-tables.html
     val spark = SparkSessionBuilder.local
-      .appName("Hive")
+      .appName("HiveDF")
       .config("spark.sql.warehouse.dir", "spark-warehouse-path")
       .enableHiveSupport()
       .getOrCreate()

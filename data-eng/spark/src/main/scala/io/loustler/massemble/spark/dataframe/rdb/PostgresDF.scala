@@ -8,7 +8,7 @@ object PostgresDF {
 
   def main(args: Array[String]): Unit = {
     val spark = SparkSessionBuilder.local
-      .appName("Postgres")
+      .appName("PostgresDF")
       .getOrCreate()
 
     val config = loadConfig
