@@ -7,6 +7,7 @@ $ docker-compose up -d # Run docker compose
 ## contents
 1. [Pivot](./pivot)
 1. [Spark](./spark)
+1. [Airflow](./airflow)
 
 ## Provided Data
 See [dump.sql](./dump.sql)
