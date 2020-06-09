@@ -26,6 +26,10 @@ object PostgresDataset {
       .as[ElectricChargepoints2017]
       .cache()
 
-    dataset.groupBy(dataset.apply(""))
+    dataset.show(numRows = 1000)
+
+//    dataset.groupBy(dataset.apply(""))
+
+    dataset.unpersist()
   }
 }
