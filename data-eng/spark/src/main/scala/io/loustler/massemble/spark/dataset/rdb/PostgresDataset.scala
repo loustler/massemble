@@ -3,6 +3,7 @@ package io.loustler.massemble.spark.dataset.rdb
 import io.loustler.massemble.spark.builder.SparkSessionBuilder
 import io.loustler.massemble.spark.config.{ PostgresConfig, loadConfig }
 import io.loustler.massemble.spark.dataset.model.ElectricChargepoints2017
+import org.apache.spark.sql.Encoders
 
 object PostgresDataset {
 
@@ -31,7 +32,7 @@ object PostgresDataset {
 
     dataset.show(numRows = 1000)
 
-//    dataset.groupBy(dataset.apply(""))
+    dataset.groupByKey(_.id)(Encoders.STRING)
 
     dataset.unpersist()
   }
