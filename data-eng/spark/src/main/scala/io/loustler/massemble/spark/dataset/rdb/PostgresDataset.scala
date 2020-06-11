@@ -26,6 +26,9 @@ object PostgresDataset {
       .as[ElectricChargepoints2017]
       .cache()
 
+    // See execution plan
+    dataset.explain()
+
     dataset.show(numRows = 1000)
 
 //    dataset.groupBy(dataset.apply(""))
