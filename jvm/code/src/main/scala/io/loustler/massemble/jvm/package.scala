@@ -1,5 +1,3 @@
 package io.loustler.massemble
 
-package object jvm {
-
-}
+package object jvm {}
