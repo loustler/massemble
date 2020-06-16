@@ -3,6 +3,9 @@ package io.loustler.massemble.jvm.gc.simulator;
 import java.util.concurrent.Executor;
 import java.util.concurrent.Executors;
 
+/**
+ * 이 시뮬레이터를 실행시키고 VisualVM 으로 모니터링
+ */
 public class ModelSimulator implements Runnable {
   private volatile boolean shutdown = false;
 
