@@ -1,11 +1,11 @@
 object V {
-  val zio = "1.0.0-RC20"
+  val zio = "1.0.0-RC21-2"
 
-  val `zio-interop-cats` = "2.1.3.0-RC15"
+  val `zio-interop-cats` = "2.1.4.0-RC17"
 
-  val `zio-config` = "1.0.0-RC19"
+  val `zio-config` = "1.0.0-RC25"
 
-  val `zio-nio` = "1.0.0-RC7"
+  val `zio-nio` = "1.0.0-RC8"
 
-  val `zio-logging` = "0.2.9"
+  val `zio-logging` = "0.3.2"
 }
