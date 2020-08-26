@@ -1,3 +1,3 @@
 object V {
-  val scalaTest: String = "3.1.2"
+  val scalaTest: String = "3.2.2"
 }

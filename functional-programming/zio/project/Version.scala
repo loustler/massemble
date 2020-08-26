@@ -1,5 +1,5 @@
 object V {
-  val zio = "1.0.0"
+  val zio = "1.0.1"
 
   val `zio-interop-cats` = "2.1.4.0"
 
