@@ -7,6 +7,10 @@ inThisBuild(
 )
 
 lazy val commonSetting = Seq(
+  javacOptions ++= Seq(
+    "-source", "1.8",
+    "-target", "1.8"
+  ),
   scalacOptions ++= Seq(
     "-deprecation",
     "-encoding",
