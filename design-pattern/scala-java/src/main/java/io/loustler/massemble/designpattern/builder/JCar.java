@@ -1,4 +1,4 @@
-package io.loustler.massemble.designpattern.example.car;
+package io.loustler.massemble.designpattern.builder;
 
 public class JCar {
   private final JType type;

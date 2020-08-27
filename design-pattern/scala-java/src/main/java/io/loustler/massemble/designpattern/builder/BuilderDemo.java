@@ -1,4 +1,4 @@
-package io.loustler.massemble.designpattern.example.car;
+package io.loustler.massemble.designpattern.builder;
 
 public class BuilderDemo {
   public static void main(String[] args) {
