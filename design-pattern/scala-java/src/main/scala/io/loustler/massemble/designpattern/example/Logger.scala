@@ -9,7 +9,9 @@ sealed trait Logger {
 
   def error(str: => String): Unit
 }
+
 object Logger {
+
   final object Console extends Logger {
     override def info(str: => String): Unit = println(s"[INFO] $str")
 

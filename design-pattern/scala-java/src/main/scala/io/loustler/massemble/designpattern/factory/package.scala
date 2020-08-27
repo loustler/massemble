@@ -1,5 +1,3 @@
 package io.loustler.massemble.designpattern
 
-package object factory {
-
-}
+package object factory {}
