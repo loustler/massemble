@@ -11,8 +11,7 @@ lazy val commonSetting = Seq(
     "-source",
     "1.8",
     "-target",
-    "1.8",
-    "-ea" // enable java assertion
+    "1.8"
   ),
   scalacOptions ++= Seq(
     "-deprecation",
