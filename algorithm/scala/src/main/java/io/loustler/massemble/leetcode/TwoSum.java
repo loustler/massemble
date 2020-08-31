@@ -2,14 +2,10 @@ package io.loustler.massemble.leetcode;
 
 import java.util.*;
 
+/**
+ *  https://leetcode.com/problems/two-sum/
+ */
 public class TwoSum {
-  /**
-   *
-   * @param nums nums
-   * @param target target value
-   * @return
-   * @see https://leetcode.com/problems/two-sum/
-   */
   public static int[] solve(int[] nums, int target) {
     final Map<Integer, Integer> table = new HashMap<Integer, Integer>();
 
