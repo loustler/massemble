@@ -11,7 +11,7 @@ public class TwoSum {
    * @see https://leetcode.com/problems/two-sum/
    */
   public static int[] solve(int[] nums, int target) {
-    final Map<Integer, Integer> table = new HashMap<Integer, Integer>;
+    final Map<Integer, Integer> table = new HashMap<Integer, Integer>();
 
     for (int i = 0; i < nums.length; i++) {
       int value = nums[i];
