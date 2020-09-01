@@ -27,15 +27,16 @@ public class RomanToInteger {
      for(int i = 0; i < n; i++) {
        char cur = s.charAt(i);
             
-       if (++i < n) {
-         char next = s.charAt(i);
+       if (i + 1 < n) {
+         char next = s.charAt(i + 1);
                 
          int x = table.get(cur);
          int y = table.get(next);
-                
-         int sum = (x < y) ? y - x : x + y;
-                
-         result += sum;
+         
+         if (x < y) {
+           result += y - x;
+           i++;
+         } else result += x;
        } else {
          int x = table.get(cur);
                 
