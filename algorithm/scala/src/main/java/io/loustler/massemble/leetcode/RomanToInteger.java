@@ -7,6 +7,9 @@ public class RomanToInteger {
   public static void main(String[] args) {
     assert solve("III") == 3;
     assert solve("IV") == 4;
+    assert solve("IX") == 9;
+    assert solve("LVIII") == 58;
+    assert solve("MCMXCIV") == 1994;
   }
 
   public static int solve(String s) {
