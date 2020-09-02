@@ -1,3 +1,6 @@
+package io.loustler.massemble.leetcode;
+
+
 // https://leetcode.com/problems/running-sum-of-1d-array/
 public class RunningSumOfArray {
   public static void main(String[] args) {
