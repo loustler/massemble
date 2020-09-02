@@ -1,3 +1,5 @@
+package io.loustler.massemble.leetcode;
+
 // https://leetcode.com/problems/shuffle-the-array/
 public class ShuffleTheArray {
   public static void main(String[] args) {
