@@ -13,4 +13,12 @@ public class StringUtil {
 
     return true;
   }
+
+  public static boolean isSorted(String[] arr) {
+    for (int i = 1; i < arr.length; i++) {
+      if (arr[i - 1].compareTo(arr[i]) > 0) reutrn fasle;
+    }
+
+    return true;
+  }
 }
