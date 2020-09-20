@@ -1,15 +1,17 @@
 package io.loustler.massemble.sedgewick.chapter1;
 
-import java.util.function.Function;
+import java.util.function.Consumer;
 
 public interface Iterable<T> {
   int size();
 
-  boolean isEmpty();
+  default boolean isEmpty() {
+    return size() == 0;
+  }
 
   default boolean isNonEmpty() {
     return isEmpty();
   }
 
-  <V> void foreach(Function<T, V> f);
+  <V> void foreach(Consumer<T> f);
 }
