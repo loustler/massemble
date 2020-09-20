@@ -1,11 +1,15 @@
 package io.loustler.massemble.sedgewick.chapter1.list;
 
+import java.util.function.BiFunction;
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 public class LinkedList<T> implements List<T> {
   private static class Node<V> {
     V    value;
     Node next;
+
+    public Node() {}
 
     public Node(V value) {
       this.value = value;
@@ -80,7 +84,51 @@ public class LinkedList<T> implements List<T> {
   }
 
   @Override
-  public void remove(T value) {
+  public List<T> filter(BiFunction<T, Integer, Boolean> fun) {
+    Node<T> cur = this.node, acc = new Node(), pointer = acc;
+
+    int idx = 0;
+
+    final LinkedList<T> list = new LinkedList<>();
+
+    while (cur != null) {
+      if (fun.apply(cur.value, idx++)) {
+        pointer.next = new Node<>(cur.value);
+        pointer = pointer.next;
+      } else size--;
+
+      cur = cur.next;
+    }
+
+    list.addNode_(acc.next);
+
+    return list;
+  }
+
+  @Override
+  public List<T> filterNot(BiFunction<T, Integer, Boolean> fun) {
+    Node<T> cur = this.node, acc = new Node(), pointer = acc;
+
+    int idx = 0;
+
+    final LinkedList<T> list = new LinkedList<>();
+
+    while (cur != null) {
+      if (!fun.apply(cur.value, idx++)) {
+        pointer.next = new Node<>(cur.value);
+        pointer = pointer.next;
+      } else size--;
+
+      cur = cur.next;
+    }
+
+    list.addNode_(acc.next);
+
+    return list;
+  }
+
+  @Override
+  public T remove(T value) {
     Node<T> cur = this.node, acc = new Node(value), pointer = acc;
 
     while (cur != null) {
@@ -93,6 +141,65 @@ public class LinkedList<T> implements List<T> {
     }
 
     this.node = acc.next;
+
+    return value;
+  }
+
+  @Override
+  public T remove(int index) {
+    Node<T> cur = this.node, acc = new Node<T>(), pointer = acc;
+
+    int innerIndex = 0;
+
+    T value = null;
+
+    while (cur != null) {
+      if (innerIndex++ != index) {
+        pointer.next = new Node<>(cur.value);
+        pointer = pointer.next;
+      } else {
+        value = cur.value;
+        size--;
+      }
+
+      cur = cur.next;
+    }
+
+    this.node = acc.next;
+
+    return value;
+  }
+
+
+  @Override
+  public T head() {
+    return node != null ? (T)node.value : null;
+  }
+
+  @Override
+  public List<T> tails() {
+    LinkedList<T> list = new LinkedList<>();
+
+    Node<T> tails = this.node != null ? this.node.next : null;
+
+    if (tails != null) {
+      list.addNode_(tails);
+    }
+
+    return list;
+  }
+
+  @Override
+  public T last() {
+    Node<T> cur = this.node;
+
+    while (cur != null) {
+      if (cur.next == null) return cur.value;
+
+      cur = cur.next;
+    }
+
+    return null;
   }
 
   @Override
@@ -172,5 +279,8 @@ public class LinkedList<T> implements List<T> {
     System.out.println("---Add 7, 8, 9, 10---");
     System.out.printf("size is %d \n", list.size());
     list.foreach(System.out::println);
+    System.out.printf("first: %d, head: %d, last: %d, tails: %s", list.first(), list.head(), list.last(), list.tails().toString());
+    System.out.printf("---filter by value 4--- %s \n", list.filter((v, i) -> v == 4).toString());
+    System.out.printf("---filter value is not 4--- %s \n", list.filterNot((v, i) -> v == 4).toString());
   }
 }
