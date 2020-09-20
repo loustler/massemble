@@ -21,7 +21,10 @@ public abstract class AbstractArrayStack<T> implements Stack<T> {
 
   @Override
   public T pop() {
-    return (T)arr[--pointer];
+    T value = (T)arr[--pointer];
+    arr[--pointer] = null;
+
+    return value;
   }
 
   @Override
