@@ -5,10 +5,38 @@
 - OS에 의해서 관리가 되고 OS가 Processor에 할당해주면 Processor가 Computer Program을 실행
 - 1개 이상의 Thread를 가짐
 - 각 process는 고유한 system resource를 OS로부터 할당받고 서로의 resource에 접근할 수 없음
+- 다른 프로세스의 자원에 접근하려면 IPC를 이용해야 함
+   - 파이프(Pipe): producer-consumer 형태. FIFS 형태의 큐. 지명파이프(named pipe)와 익명 파이프(anonymous pipe)가 있음
+   - 파일(File)
+   - 소켓(Socket)
+   - 메시지 큐(Message Queue)
 
 ## Thread
 - Process의 구성요소로 OS Scheduler에 의해 도긻적으로 관리될 수 있는 가장 작은 단위의 프로그래밍 명령 시퀀스
 - Process와 달리 같은 Process에 있는 Thread들은 서로 같은 리소스를 공유하며 접근할 수 있음(Stack 제외)
+
+### User Thread, Kernel Thread
+- User Thread
+   - 사용자 영역의 Thread로 Kernel이 이 Thread의 존재를 알지 못함
+   - Kernel 위에서 지원
+   - N개의 User Thread가 1개의 Kernel Thread에 매핑되어 다대일 Thread Mapping이라고 함
+   - Pros
+       1. 이식성이 높음: Kernel에 독립적으로 스케줄링하므로 모든 운영체제에 적용가능
+       1. 오버헤드가 적음: Scheduling이나 Sync를 위해 Kernel을 호출하지 않으므로 Kernel 으로 전환하는 오버헤드가 줄어듦
+       1. 유연한 스케줄링: Kernel이 아닌 Library에서 Thread Scheduling을 제어하므로 응용 프로그램에 맞게 Scheduling
+   - Cons
+       1. Kernel Thread와 M : 1 mapping으로 병렬, 동시성 X
+       1. 확장의 제약
+       1. Thread 간 보호 불가능
+- Kernel Thread
+   - OS(Kernel)가 직접 지원되고 관리
+   - User Thread의 한계를 극복
+   - User Thread와 Kernel Thread가 1:1로 mapping되어 User Thread를 생성하면 Kernel Thread를 생성
+   - Pros
+       1. 동시성, 병렬성 O 
+       1. Kernel이 Thread를 관리하고 제공해주므로 안전성과 다양한 기능이 제공됨
+   - Cons
+       1. Kernel 으로 전환하는 오버헤드 발생
 
 ## MultiThread의 장점
 1. Multi Process에 비해 적은 Context Switching 비용
@@ -94,16 +122,23 @@ Callback을 이용하면 callback이 불려졌을 때 실행될 코드만 주고
    - 내부 단편화 해결 가능, 외부 단편화는 존재(기존에 사용하던 메모리를 해제하면 생길 수 있음)
 
 ### 가상 메모리
-1. 가상 메모리
+1. 가상 메모리(Virtual Memory)
    - 프로그램 실행에 필요한 메모리 전체를 RAM에서 할당받는 것이 아니라 최소한의 메모리만 RAM에서 할당받고 나머지는 디스크에 공간을 만들어 저장
-   - 
-1. 페이지 폴트
+   - 프로세스 전체가 메모리 내에 올라오지 않더라도 실행이 가능하도록 하는 기법 - 메모리 관리 기법\
+1. 페이지 폴트(Page Fault)
    - 가상 메모리를 사용할 때 물리 메모리인 RAM과 가상 메모리인 DISK에 나누어서 저장하는데, 이 때 필요로 하는 페이지가 물리 메모리에 없을 때를 일컫음
-1. 요구 페이징
+   - 즉 가상 메모리 공간에는 존재하지만 실제 메모리인 RAM에는 해당 데이터나 코드 등이 없는데 접근할 때 발생하는 현상으로 가상 메모리에는 데이터가 있지만 실제 메모리에는 없는 현상을 말함
+1. 요구 페이징(Demand Paging)
    - 페이지 폴트가 발생하면 OS가 가상 메모리에서 해당 페이지를 찾아서 물리 메모리의 불필요 페이지와 교체를 요구함
-   - 이 때 모든 스레드는 멈춰 대기함
+   - Step
+      1. OS가 CPU의 동작을 잠시 멈춤
+      1. OS가 Page Table을 확인하여 가상 메모리에 페이지가 존재하는지 확인하고 없으면 프로세스 중단
+      1. 물리 메모리가 비어 있는 Frame이 있는지 확인하여 있다면 해당 Page를 로드하고 Page Table을 업데이트
+      1. 만약 비어 있는 Frame이 없다면 페이지 교체 알고리즘을 이용하여 Page를 로드하고 Page Table 업데이트
+      1. 중단되었던 CPU를 다시 시작
 
-### 페이지 교체 알고리즘
+
+### 페이지 교체 알고리즘(Page Replacement Alogirhtm)
 1. FIFO(First In First Out)
    - 가장 오래된 페이지를 교체
 1. LRU(Least Recently Used)
