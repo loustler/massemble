@@ -12,7 +12,7 @@
    - 메시지 큐(Message Queue)
 
 ## Thread
-- Process의 구성요소로 OS Scheduler에 의해 도긻적으로 관리될 수 있는 가장 작은 단위의 프로그래밍 명령 시퀀스
+- Process의 구성요소로 OS Scheduler에 의해 독립적으로 관리될 수 있는 가장 작은 단위의 프로그래밍 명령 시퀀스
 - Process와 달리 같은 Process에 있는 Thread들은 서로 같은 리소스를 공유하며 접근할 수 있음(Stack 제외)
 
 ### User Thread, Kernel Thread
@@ -33,14 +33,24 @@
    - User Thread의 한계를 극복
    - User Thread와 Kernel Thread가 1:1로 mapping되어 User Thread를 생성하면 Kernel Thread를 생성
    - Pros
-       1. 동시성, 병렬성 O 
+       1. 동시성, 병렬성 O
+       1. 프로세스의 Thread를 몇몇 프로세서에 한꺼번에 디스패치 할 수 있어 멀티프로세서 환경에서 매우 빠르게 동작
        1. Kernel이 Thread를 관리하고 제공해주므로 안전성과 다양한 기능이 제공됨
    - Cons
-       1. Kernel 으로 전환하는 오버헤드 발생
+       1. Kernel로 전환하는 오버헤드 발생
 
-## MultiThread의 장점
-1. Multi Process에 비해 적은 Context Switching 비용
-1. Process는 서로 IPC 등을 통해 통신해야 하므로 같은 리소스를 공유하는 Thread에 비해 커뮤니케이션 비용이 더 큼
+## MultiThread
+- Pros
+   1. Multi Process에 비해 적은 Context Switching 비용
+   1. Process는 서로 IPC 등을 통해 통신해야 하므로 같은 리소스를 공유하는 Thread에 비해 커뮤니케이션 비용이 더 큼
+- Cons
+   1. 공유 자원(Heap)에 접근할 때 동기화가 필요
+   1. DeadLock이 발생할 수 있음
+
+## Context Switching
+- Process 상태를 변경하는 것
+   - 프로세스 A가 CPU를 사용중일 때 프로세스 B가 CPU를 사용하게 하기 위해 프로세스 A의 상태를 보관하고 프로세스 B의 상태를 적재하는 작업
+- Scheduling에 의해 실행 중인 코드, 자원 등을 저장하고 현재 상태를 대기 상태로 만든 다음 다른 프로세스를 실행시키는 과정
 
 ## Synchronous, Asynchronous, Blocking, Non-Blocking
 1. Synchronous
@@ -124,7 +134,7 @@ Callback을 이용하면 callback이 불려졌을 때 실행될 코드만 주고
 ### 가상 메모리
 1. 가상 메모리(Virtual Memory)
    - 프로그램 실행에 필요한 메모리 전체를 RAM에서 할당받는 것이 아니라 최소한의 메모리만 RAM에서 할당받고 나머지는 디스크에 공간을 만들어 저장
-   - 프로세스 전체가 메모리 내에 올라오지 않더라도 실행이 가능하도록 하는 기법 - 메모리 관리 기법\
+   - 프로세스 전체가 메모리 내에 올라오지 않더라도 실행이 가능하도록 하는 기법 - 메모리 관리 기법
 1. 페이지 폴트(Page Fault)
    - 가상 메모리를 사용할 때 물리 메모리인 RAM과 가상 메모리인 DISK에 나누어서 저장하는데, 이 때 필요로 하는 페이지가 물리 메모리에 없을 때를 일컫음
    - 즉 가상 메모리 공간에는 존재하지만 실제 메모리인 RAM에는 해당 데이터나 코드 등이 없는데 접근할 때 발생하는 현상으로 가상 메모리에는 데이터가 있지만 실제 메모리에는 없는 현상을 말함
@@ -149,3 +159,75 @@ Callback을 이용하면 callback이 불려졌을 때 실행될 코드만 주고
 1. MFU(Most Frequently Used)
    - 가장 사용 빈도가 많은 것을 교체
 
+## 기아(Starvation)
+프로세스의 우선순위가 낮아서 자원을 계속 할당받지 못하는 상태
+
+자원 관리의 문제로 이 상태에서 대기 중인 프로세스는 리소스가 다른 프로세스에 할당되어 있기 때문에 오랫동안 리소스를 할당 받지 못함
+
+## Aging
+자원 스케줄링 시스템에서 기아를 방지 하기 위해 사용되는 기술
+
+특정 프로세스의 우선순위가 낮아 무한정 기다리게 될 때, 한 번 양보하거나 기다린 시간에 비례하여 일정 시간이 지나면 우선순위를 한 단계씩 높여서 가까운 시간에 자원을 할당받도록 하는 기법
+
+## Process Scheduling
+한정된 자원에서 여러개의 프로세스가 있을 때, 자원을 어떻게 할당할건지 정책
+
+### CPU Scheduling
+CPU 1개는 N개의 프로세스를 처리할 수 없으므로, 어떤 순간에 어떤 프로세스가 CPU를 사용할 수 있게 할 건지 결정하는 정책
+
+발생조건은
+1. 실행상태에서 대기상태로 전환될 때 - Non preemptive(비선점)
+1. 실행상태에서 준비상태로 전환할 때 - Preemptive(선점)
+1. 대기상태에서 준비상태로 전환할 때
+1. 종료될 때 Terminated
+
+#### Non-preemptive, Preemptive
+- Non-preemptive
+   - 이미 할당된 CPU를 다른 프로세스가 강제로 빼앗아 사용할 수 없는 스케줄링 기법
+   - 프로세스가 CPU를 할당받으면 완료할 때까지 CPU를 계속 사용함
+   - 일괄 처리 방식의 스케줄링
+   - 종류
+      1. **FCFS(First Come First Served)**: FIFO
+         - Pros
+            - 도착 순서에 따라 공평
+         - Cons
+            - 평균 응답시간이 길다
+      1. **SJF(Shortest Job First)**: 실행시간이 가장 짧은 프로세스에 먼저 할당
+         - Pros
+            - 평균 응답시간을 최소화
+         - Cons
+            -  실행시간이 긴 프로세스는 CPU를 할당받지 못하는 문제가 생길 수 있음(Starvation, 기아)
+      1. **HRN(Highest Response ratio)**: 우선순위를 계산하여 높은 순서로 CPU 할당. 우선순위 = `대기시간 + 서비스시간 / 서비스시간`
+      1. Deadline: 프로세스에게 실행할 수 있는 시간을 주고 그 시간 안에 완료하게끔 하는 기법
+      1. Priority: 준비상태 큐에서 기다리는 프로세스에게 우선순위를 부여하여 우선순위가 높은 순서로 CPU를 할당
+- Preemptive
+   - 하나의 프로세스가 CPU를 할당받아 사용하고 있을 때 우선순위가 높은 프로세스가 CPU를 강제로 빼앗아 사용할 수 있는 스케줄링 기법
+   - 선점으로 인한 많은 오버헤드 발생
+   - 시분할 시스템에서 사용
+   - 선점을 위해 시간 배당을 위한 인터럽트(Interrupt)용 타이밍 클락(timing clock)이 필요
+   - 종류
+      1. SRT(Shortest Remaining Time): 현재 실행 중인 프로세스의 남은 시간과 대기 큐에 있는 프로세스의 실행시간 중 가장 짧은 프로세스에게 CPU 할당
+         - Cons
+            1. 잦은 선점으로 인한 Context Switching 부담
+            1. Starvation
+      1. 선점 우선순위: 준비상태 큐의 프로세스 중 우선순위가 가장 높은 프로세스에게 할당
+      1. **RR(Round Robin)**: FCFS 알고리즘을 선점 형태로 변형한 기법. 먼저 대기한 작업이 먼저 CPU를 할당받음
+         - Cons
+            1. CPU를 사용할 수 있는 동안 사용하고 나서 다시 대기 큐의 끝으로 배치되고 할당되는 시간이 크면 FCFS와 같아지고, 작으면 Context Switching 과 오버헤드가 자주 발생
+      1. **MLQ(Multi Level Queue)**: 프로세스를 특정 그룹으로 분류할 수 있는 경우 그룹에 따라 다른 준비 큐를 사용하며 큐마다 독자적인 scheduling을 가짐. 큐 사이에 우선순위가 매겨지며 우선순위가 높은 큐에 할당된 프로세스가 먼저 처리 됨. 단 프로세스는 다른 큐로 이동할 수 없음.
+      1. **MLFQ(Multi Level Feed-back Queue)**
+         - MLQ에서 서로 다른 큐로 이동할 수 있게끔 개선한 기법. 새로운 프로세스는 높은 우선순위의 큐로 할당되며 실행시간이 길어질수록 하위순위의 우선순위 큐로 이동함.
+         - 제일 마지막 단게에서는 RR/FCFS를 이용하여 처리
+         - 우선순위가 높은 큐일수록 시간 할당량을 적게 설정함
+         - Aging 방법 중 하나로 Starvation을 예방.
+         - RR과 함께 가장 많이 사용되는 기법
+      1. RM(Rate Monotonic): 수행 주기가 가장 짧은 프로세스에 가장 높은 우선순위를 부여하는 실시간 Scheduling 알고리즘.
+         - Pros
+            - 간단하며 사용률이 0.69 이하일 때 항상 Scheduling 가능
+         - Cons
+            - 주기가 긴 Task들의 우선순위가 낮아져서 장시간 대기
+      1. EDF(Earliest Deadline First): 프로세스의 마감시한이 가까울수록 우선순위를 높게 부여하는 기법
+         - Pros
+            - 이론적으로 총 이용률이 1 이하면 Scheduling 가능
+         - Cons
+            - Task들의 수행시간, 마감시간, 주기 등을 정확히 예측하는 것이 어려움
