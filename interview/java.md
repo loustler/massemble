@@ -167,3 +167,15 @@ Old Generation으로 옮긴다.
 
 #### Full GC
 만약 Old Generation도 객체로 꽉 찼다면 Full GC를 실행해 양 generation을 모두 GC를 실행한다.
+
+### Type of References
+1. Strong Reference
+    - 기존 참조 유형으로 GC의 대상이 되지 않음(물론 살아있는 객체가 아니면 대상이 되어 제거가 됨. 할당 당시를 말하는 것)
+    - `AClass a = new AClass();`
+1. Weak Reference
+    - GC의 대상이 되어 힙에서 제거됨
+    - `WeakReference<AClass> weakA = new WeakReference(a);`
+1. Soft Reference
+    - GC의 대상이 되나 메모리가 부족하지 않으면 제거되지 않음
+    - `SoftReference<AClass> softA = new SoftReference(a);`
+1. Phantom Reference
