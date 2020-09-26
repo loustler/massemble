@@ -1,10 +1,13 @@
 package io.loustler.massemble.codility;
 
+import io.loustler.massemble.JArraySwap;
+import io.loustler.massemble.JPrinter;
+
 public class CyclicRotation {
   public static void main(String[] args) {
-    print(solve(new int[] {3, 8, 9, 7, 6}, 3)); // [9, 7, 6, 3, 8]
-    print(solve(new int[] {0, 0, 0}, 1)); // [[0, 0, 0]
-    print(solve(new int[] {1, 2, 3, 4}, 4)); // [1, 2, 3, 4]
+    JPrinter.print(solve(new int[] {3, 8, 9, 7, 6}, 3)); // [9, 7, 6, 3, 8]
+    JPrinter.print(solve(new int[] {0, 0, 0}, 1)); // [[0, 0, 0]
+    JPrinter.print(solve(new int[] {1, 2, 3, 4}, 4)); // [1, 2, 3, 4]
   }
 
   public static int[] solve(int[] A, int K) {
@@ -21,29 +24,7 @@ public class CyclicRotation {
 
   private static void reverse(int[] arr, int start, int end) {
     while (start < end) {
-      swap(arr, start++, end--);
+      JArraySwap.swap(arr, start++, end--);
     }
-  }
-
-  private static void swap(int[] arr, int i, int j) {
-    int tmp = arr[i];
-    arr[i] = arr[j];
-    arr[j] = tmp;
-  }
-
-  private static void print(int[] arr) {
-    StringBuilder builder = new StringBuilder();
-
-    builder.append("[");
-
-    for (int i = 0; i < arr.length; i++) {
-      builder.append(arr[i]);
-
-      if (i < arr.length - 1) builder.append(",");
-    }
-
-    builder.append("]");
-
-    System.out.println(builder.toString());
   }
 }
