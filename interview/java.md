@@ -51,11 +51,8 @@
 1. 해석한 바이트코드를 Runtime Data Area에 배치
 1. 실질적인 수행
 
-### Excution Engine
-- Interpreter
-- JIT(Just-In-Time) Compiler
-    - Interpreter 단계에서 수집한 추적 정보를 근거로 최적화를 결정
-    - 코드를 최적화 한 것을 캐시하여 다시 최적화를 하지 않고 빠르게 사용할 수 있게 캐시를 사용함
+## Pass-by-value
+Primitive type일 경우 값을 그대로 복사해서 전달하며 Reference type일 경우 객체 주소값을 복사해서 전달
 
 ## JVM(Java Virtual Machine)
 Java를 OS 독립적으로 실행시켜주는 머신으로, 실제 Java뿐만 아니라 Scala, Kotlin을 비롯하여 다양한 언어들이 JVM 위에서 실행될 수 있다.
@@ -91,3 +88,50 @@ JVM으로  클래스(`.class` 파일)를 로드하고 링크를 통해 작업을
 만약 **Application ClassLoader**가 로드에 실패했을 때는 역순으로 실행하며 그래도 실패할 경우 `ClassNotFoundException`이 발생함
 
 Class는 FQCN(Fully Qualified Class Name)과 자신을 로드한 ClassLoader 두 가지 정보로 식별됨
+
+### Excution Engine
+- Interpreter
+- JIT(Just-In-Time) Compiler
+    - Interpreter 단계에서 수집한 추적 정보를 근거로 최적화를 결정
+    - 코드를 최적화 한 것을 캐시하여 다시 최적화를 하지 않고 빠르게 사용할 수 있게 캐시를 사용함
+- GC(Garbage Collection)
+    - Daemon Thread로 실행되며 백그라운드에서 항상 실행되는 메모리 관리 프로그램
+
+### Runtime Data Area
+- Stack
+    - Method 내에서 사용되는 값들이 저장되며, method가 호출될 때 LIFO로 하나씩 생성되고 실행이 완료되면 LIFO로 하나씩 지워짐
+    - Thread마다 생성
+- PC Register
+    - Thread가 어떤 부분을 어떤 명령어로 실행해야 할 지 기록 하는 부분으로 JVM 명령 주소를 가짐
+    - Thread마다 생성
+- Native Method Stack
+    - 다른 언어(C, C++ 등)의 method 호출을 위해 할당되는 구역
+    - Thread마다 생성
+- Method
+    - Class, Variable, Method, Static variable, constant variable 등이 저장되는 영역
+- Heap
+    - `new` 명령을 통해 생성된 Instance와 object가 저장(배열로 저장됨, `new`를 통해 생성시키기 때문)
+    - GC가 동작하는 영역
+
+#### Heap Area
+Heap 영역은 GC가 동작하는 부분이며 동적으로 여러 객체들이 할당되는 영역
+
+Heap은 크게
+- Young Generation: 새로 생성되거나 생성되지 얼마 되지 않은 객체들이 저장되는 곳
+    - Young Generation은 또 크게 2가지 영역으로 나누어진다
+        - Eden: 새로 생성된 객체들이 있는 공간
+        - Survivor(0, 1): 어느정도 살아남은 객체들이 존재하는 공간
+            - Survivor 0이 꽉차게 되면 Survivor 1으로 이동시킴
+- Old Generation: 일정 기준 이상으로 참조되고 있어 살아있다고 판단된 객체들이 저장되는 곳
+
+으로 나누어진다
+
+### GC(Garbage Collection)
+- Runtime Data Area의 Heap 영역에서 더 이상 사용되지 않는 객체들을 정리함
+- Daemon Thread로 실행되어 background에서 실행됨
+- 분류
+    1. Minor GC: Young Generation에서 발생하는 GC
+    1. Major GC: Old Generation에서 발생하는 GC
+    1. Full GC: Young, Old 모두에서 발생하는 GC
+- STW(Stop The World)
+    - Full GC가 발생할 때 모든 Thread들이 동작이 멈추는 것을 말함
