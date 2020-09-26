@@ -134,4 +134,36 @@ Heap은 크게
     1. Major GC: Old Generation에서 발생하는 GC
     1. Full GC: Young, Old 모두에서 발생하는 GC
 - STW(Stop The World)
-    - Full GC가 발생할 때 모든 Thread들이 동작이 멈추는 것을 말함
+    - GC가 발생할 때 모든 Thread들이 동작이 멈추는 것을 말함
+- Card Table
+    - Old Generation에 있는 객체가 New Generation을 참조하는 정보를 기록하는 자료구조
+
+#### Mark and Sweep
+할당됐지만 아직 회수되지 않은 객체들을 가르키는 포인터를 가지고 있는 할당 리스트를 사용
+1. 할당 리스트를 순회하면서 mark bit를 지움(DFS)
+1. GC Root로부터 살아있는 객체를 찾음
+1. 할당리스트를 순회하면서 mark bit가 셋팅되지 않은 객체를 찾아서 메모리 해체
+
+#### GC Root
+메모리의 고정점(Anchor point)으로, 메모리 풀 외부에서 내부를 가리키는 포인터로 외부포인터
+
+메모리 풀 내부에서 같은 메모리 풀 내부의 다른 메모리 위치를 가르키는 내부포인터와는 반대
+
+#### Minor GC
+Young Generation에서 발생하는 GC를 Minor GC라고 함
+
+Young Generation은 Eden, Survivor으로 나뉘어져 있다고 했는데 아래와 같이 동작한다.
+
+1. Eden 영역에서 Mark And Sweep을 해서 더 이상 참조되지 않는 객체를 삭제함
+1. 1을 반복하여 일정 기준치 이상 사용되어 살아남은 객체를 Survivor로 보냄
+1. 살아남은 객체들에게 generation이 지나고 살아남았음을 표시한다.(Age bit)
+
+#### Major GC
+Old Generation에서 발생하는 GC를 Major GC라고 함
+
+이전의 Major GC에서 살아남아 Age bit가 일정 기준치를 넘어 살아남은 객체나 Young Generation이 감당할 수 없을 정도 크기의 객체의 경우
+
+Old Generation으로 옮긴다.
+
+#### Full GC
+만약 Old Generation도 객체로 꽉 찼다면 Full GC를 실행해 양 generation을 모두 GC를 실행한다.
