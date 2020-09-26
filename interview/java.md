@@ -179,3 +179,12 @@ Old Generation으로 옮긴다.
     - GC의 대상이 되나 메모리가 부족하지 않으면 제거되지 않음
     - `SoftReference<AClass> softA = new SoftReference(a);`
 1. Phantom Reference
+
+## Sort
+- `java.util.Arrays.sort`
+    - primitive type: two pivot quick sort
+    - reference type: Time sort
+
+## Collection
+- HashMap
+    - java 7 ~ : bucket이 6개 이하면 LinkedIn, 8개 이상이면 RedBlackTree
