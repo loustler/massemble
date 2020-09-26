@@ -1,1 +1,93 @@
 # Java
+## 객체지향(Object Oriented)
+실세계의 사물을 추상화하여 멤버 변수와 메서드를 정의하는데서 출발
+
+캡슐화를 통해 이 같은 멤버변수와 메서드의 이용가능 범위를 적절히 제한할 수 있고, 상속을 이용하여 부모 클래스의 기능을 자식클래스에서 물려받거나 재정의를 통해 다른 기능을 구현하는 다형성도 포함
+
+### 객체지향 프로그래밍(Object-Oriented Programming, OOP)
+데이터를 객체로 취급하여 프로그램에 반영한 것
+
+- 특징
+    1. 다형성
+        - 하나의 메서드나 클래스가 다양한 방법으로 동작하는 것
+        - 상속을 통해 기능을 확장하거나 변경하는 것이 가능
+        - 한 행동을 여러 방법으로 구현하고 상황에 따라 적당한 구현을 선택해서 쓸 수 있도록 하는 기능을 제공
+        - 오버로딩(Overloading), 오버라이딩(Overriding)을 통해서 한 개념에 여러 개념을 넣어놓은 것
+    1. 상속
+        - 어떤 클래스에서 더 특화된 버전의 클래스를 위한 행동을 제공
+        - 공통적으로 필요한 것을 부모 클래스로 두고 새로운 클래스가 자식 클래스가 됨으로써 공통을 물려 받고 더 나아가 거기에서 확장하는 것
+    1. 캡슐화
+        - 객체가 맡은 역할을 수행하기 위한 하나의 목적을 위해 데이터와 기능을 묶은 것
+        - 중요한 데이터나 기능을 외부에서 접근하지 못하도록 함
+    1. 추상화
+        - 객체들의 공통 데이터와 기능을 도출하는 것을 말함
+- SOLID Principal
+    1. SRP(Single Responsibility Principal): 단일 책임 원칙
+        - 작성된 클래스는 하나의 기능만 가지며 클래스가 제공하는 모든 서비스는 그 하나의 책임을 수행하는데 집중되어야 함
+    1. OCP(Open Closed Principal): 개방 폐쇄 원칙
+        - 확장에는 열려있고, 변경에는 닫혀 있어야 함
+        - 요구사항의 추가/변경 사항이 있더라도 기존 구성요소의 수정이 일어나서는 안되고, 기존 구성요소의 쉽게 확장해서 재사용 가능해야 함
+    1. LSP(Liskov Substitution Principal): 리스코프 치환 법칙
+        - 서브 타입은 상위 타입으로 교체가 될 수 있어야 한다
+        - 쉽게 생각해서 상속관계에서 부모 A와 자식 B가 있을 때, 자식 B는 언제라도 부모 A이 될 수 있어야 한다는 것
+    1. ISP(Interface Segregation Principal): 인터페이스 분리 법칙
+        - 자신이 사용하지 않는 인터페이스는 구현하지 말아야 함
+        - SRP의 인터페이스 관점
+    1. DIP(Dependency Inversion Principal): 의존성 역전 원칙
+        - 구현체보다는 추상체에 의존
+        - 즉 인터페이스 A가 있고 그것을 상속받아 구현한 B, C가 있을 때 사용하는 쪽은 인터페이스 A를 사용해야지 B, C 를 사용하면 안된다는 것
+
+## 특징
+1. 운영체제에 독립적(JVM으로 인해)
+1. 1개 이상의 클래스로 구성
+1. `public static void main(String[] args)`이 엔트리 포인트
+1. GC를 통한 메모리 관리
+
+## 실행과정(Hotspot 기준)
+1. `.java`를 `.class`로 `javac`를 이용해 컴파일
+1. ClassLoader를 통해 JVM에 Class 로드(`.class`)
+1. Execution Engine을 통해서 로드한 Class 해석
+    - Interpreter 모드로 실행하면서 Application을 모니터링하다가 가장 자주 사용되는 코드를 발견하면 JIT 실행 
+1. 해석한 바이트코드를 Runtime Data Area에 배치
+1. 실질적인 수행
+
+### Excution Engine
+- Interpreter
+- JIT(Just-In-Time) Compiler
+    - Interpreter 단계에서 수집한 추적 정보를 근거로 최적화를 결정
+    - 코드를 최적화 한 것을 캐시하여 다시 최적화를 하지 않고 빠르게 사용할 수 있게 캐시를 사용함
+
+## JVM(Java Virtual Machine)
+Java를 OS 독립적으로 실행시켜주는 머신으로, 실제 Java뿐만 아니라 Scala, Kotlin을 비롯하여 다양한 언어들이 JVM 위에서 실행될 수 있다.
+
+JVM은 메모리 관리부터 시작하여 GC도 수행하며, 스택 기반의 가상머신이다.
+
+1. ClassLoader
+1. Execution Engine
+1. Runtime Data Area
+
+로 구성되어 있다.
+
+### ClassLoader
+JVM으로  클래스(`.class` 파일)를 로드하고 링크를 통해 작업을 수행하는 모듈로 Runtime에 동적으로 클래스를 로드한다.
+
+클래스 로더는
+
+1. Bootstrap ClassLoader
+    - Runtime Core Class 로드(`rt.jar` 같은. Java 9 이후로는 다름)
+    - 최소한의 필수 클래스를 로드(`java.lang.Object`, `Class`, `ClassLoader` 등)
+1. Extension ClassLoader
+    - Bootstrap ClassLoader를 부모로 설정하고 필요할 때 ClassLoading을 Bootstrap ClassLoader에게 넘김(주로 ClassLoading에 실패했을 때)
+    - 특정 OS나 플랫폼에 Native Code를 제공하고 기본환경을 overriding 할 수 있음
+    - Security Extension Function 같은 다양한 확장 클래스들을 로드함(`$JAVA_HOME/jre/lib/ext`)
+1. Application ClassLoader
+    - Extension ClassLoader을 부모로 설정하고 필요할 때 ClassLoading을 Extension ClassLoader에게 넘김
+    - 지정된 class path에 위치한 User Class를 로드함
+
+가 있다.
+
+**Bootstrap ClassLoader** -> **Extension ClassLoader** -> **Application ClassLoader** 순으로 실행된다.
+
+만약 **Application ClassLoader**가 로드에 실패했을 때는 역순으로 실행하며 그래도 실패할 경우 `ClassNotFoundException`이 발생함
+
+Class는 FQCN(Fully Qualified Class Name)과 자신을 로드한 ClassLoader 두 가지 정보로 식별됨
