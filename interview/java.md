@@ -183,7 +183,7 @@ Old Generation으로 옮긴다.
 ## Sort
 - `java.util.Arrays.sort`
     - primitive type: two pivot quick sort
-    - reference type: Time sort
+    - reference type: Time sort(merge sort + insertion sort)
 
 ## Collection
 - HashMap
