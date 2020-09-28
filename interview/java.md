@@ -188,3 +188,7 @@ Old Generation으로 옮긴다.
 ## Collection
 - HashMap
     - java 7 ~ : bucket이 6개 이하면 LinkedIn, 8개 이상이면 RedBlackTree
+
+## Labmda
+- 람다에 외부 지역변수를 사용할 때 `final` 혹은 `final`처럼 동작해야 되는 이유
+    - 람다가 실행될 때 람다의 스택에 값을 복사해서 사용하는데 원본값과 다르면 문제를 야기할 수 있기 때문에 이를 방지하기 위해 제약사항으로 걸어버림
