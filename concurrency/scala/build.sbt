@@ -11,7 +11,8 @@ lazy val settings = Seq(
     "UTF-8",
   ),
   scalafmtOnCompile := false,
-  Test / run / fork := true
+  Test / run / fork := true,
+  addDependencyTreePlugin
 )
 
 lazy val concurrency = project

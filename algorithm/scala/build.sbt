@@ -27,6 +27,7 @@ lazy val commonSetting = Seq(
   ),
   scalafmtOnCompile := false,
   test / fork := true,
+  addDependencyTreePlugin
 )
 
 lazy val root = (project in file("."))

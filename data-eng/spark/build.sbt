@@ -22,7 +22,8 @@ lazy val commonSetting = Seq(
     "-Ywarn-value-discard"
   ),
   scalafmtOnCompile := false,
-  test / fork := true
+  test / fork := true,
+  addDependencyTreePlugin
 )
 
 lazy val root = (project in file("."))

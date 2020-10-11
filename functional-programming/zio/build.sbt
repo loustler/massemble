@@ -22,7 +22,8 @@ lazy val commonSetting = Seq(
     "-Ywarn-value-discard"
   ),
   scalafmtOnCompile := false,
-  testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+  testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework"),
+  addDependencyTreePlugin
 )
 
 lazy val zio = (project in file("."))
