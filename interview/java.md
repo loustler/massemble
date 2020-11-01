@@ -37,17 +37,71 @@
         - 구현체보다는 추상체에 의존
         - 즉 인터페이스 A가 있고 그것을 상속받아 구현한 B, C가 있을 때 사용하는 쪽은 인터페이스 A를 사용해야지 B, C 를 사용하면 안된다는 것
 
+#### Polymorphism
+1. Compile-time(static binding) - Method overloading
+    - 같은 이름의 method가 클래스에 존재하며, 각 method는 parameter의 개수가 다르며 다른 타입이나 정렬방식을 가짐
+    - method의 동작(behavior)이 추가되는 것
+    - method가 서로 같은 시그니쳐를 가질 수 없음
+    - 상속이 필요 없음
+1. Runtime(dynamic binding) - Method overriding
+    - superclass의 method와 같은 이름의 method를 가짐. parameter의 타입과 개수가 superclass method와 동일
+    - method의 동작을 수정하는 것
+    - method가 정확히 같은 시그니쳐를 가짐
+    - 상속이 필요함
+
 ## 특징
 1. 운영체제에 독립적(JVM으로 인해)
+    - Java compiler는 code compile을 통해 bytecode라는 형태로 만들고 이 bytecode가 JRE(Java Runtime Environment)에서 실행이 되기 때문에 OS와는 별개로 독립적으로 실행될 수 있음
+    - JRE는 JVM 구현체로 운영체제마다 별도의 버전이 존재함
 1. 1개 이상의 클래스로 구성
 1. `public static void main(String[] args)`이 엔트리 포인트
 1. GC를 통한 메모리 관리
+1. 100% 객체지향은 아님. Primitive type(`int`, `boolean` 등)의 경우는 Object가 아니며 Scala가 100% 객체지향 지원(`Int`, `Boolean` 등)
+
+## Keyword
+- `static`
+    - 의미
+        1. 공유
+        1. instance와 무관한 method
+        1. 한 번만 동작
+    - `static` 변수
+        - class instance에 속한 멤버가 아닌 class에 속한 멤버로 class를 통해 instance를 만들지 않아도 사용할 수 있음
+        - `static`을 사용하지 않은 변수는 JMM(Java Memory Model) Heap 영역에 instance가 생성되므로 Heap쪽에 변수가 할당됨
+        - `static`변수(클래스 변수)는 JMM Method Area에 생성되므로 공유되고 GC에 의해 삭제되지 않으며 클래스가 로딩될 때 같이 메모리에 적재됨
+- `volatile`
+    - 의미
+        1. 변수를 CPU cache를 거치지 않고 바로 Main Memory에 올리겠다는 의미
+            - 성능을 위해 CPU cache를 사용하게 되는데, 이럴경우 multi-thread 환경에서 문제가 발생할 수 있음(각각 CPU cache에 저장된 값이 다를 수 있기 때문)
+            - Main Memory에 바로 올림으로써 read/write를 main memory를 통해서 하겠다는 것
+            - `volatile` 변수를 위한 `synchozniation`이 필요함(`double checked lock`)
+- `transient`
+    - 의미
+        1. Serialization에서 제외하겠다는 의미
+            - 다른 변수로 인해 추정할 수 있는 변수의 경우 `transient`를 통해 serialization/deserization 제외할 수 있음
+
+### Keyword Code Example
+```java
+// Double checked locking use volatile
+public class Singleton1 {
+    private static volatile Singleton1 instance;
+
+    public static Singleton1 getInstance() {
+        if (instance == null) {
+            synchornized (Singleton1.class) {
+                if (instance == null) instance = new Singleton1();
+            }
+        }
+
+        return instance;
+    }
+}
+```
 
 ## 실행과정(Hotspot 기준)
 1. `.java`를 `.class`로 `javac`를 이용해 컴파일
 1. ClassLoader를 통해 JVM에 Class 로드(`.class`)
 1. Execution Engine을 통해서 로드한 Class 해석
-    - Interpreter 모드로 실행하면서 Application을 모니터링하다가 가장 자주 사용되는 코드를 발견하면 JIT 실행 
+    - Interpreter 모드로 실행하면서 Application을 모니터링하다가 가장 자주 사용되는 코드를 발견하면 JIT 실행
 1. 해석한 바이트코드를 Runtime Data Area에 배치
 1. 실질적인 수행
 
