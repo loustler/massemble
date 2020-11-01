@@ -97,6 +97,18 @@ public class Singleton1 {
 }
 ```
 
+## Collection
+### fail-fast, fail-safe
+- fail-safe
+    - 장애(에러)가 발생해도 작업 중단 하지 않음
+    - `Iterator`의 fail-safe는 collection의 복제본과 동작하여 수정의 영향을 받지 않음
+    - `java.util.concurrent`는 fail-safe
+    - 에러 발생이 없음
+- fail-fast
+    - 장애(에러)가 발생시 전체 작업을 중단함
+    - `java.util` 패키지의 모든 Collection은 fail-fast
+    - `ConcurrentModificationException` 발생시킴
+
 ## 실행과정(Hotspot 기준)
 1. `.java`를 `.class`로 `javac`를 이용해 컴파일
 1. ClassLoader를 통해 JVM에 Class 로드(`.class`)
