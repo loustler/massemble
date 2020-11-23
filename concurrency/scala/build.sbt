@@ -1,7 +1,7 @@
 inThisBuild(
   Seq(
     organization := "io.loustler.massemble",
-    scalaVersion := "2.13.3",
+    scalaVersion := "2.13.4",
   )
 )
 
