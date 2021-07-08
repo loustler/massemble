@@ -25,6 +25,8 @@ object PostgresDF {
       )
       .persist()
 
+    df.explain()
+
     val aggDf = df
       .groupBy(df.apply("chargepoint_id"))
       .agg(
